@@ -47,14 +47,14 @@ public class FileController {
         FileData fileData = service.getFileData(id);
         InputStream fileStream = service.getDataAsStream(id);
 
-        // Set MIME type, content type, content length, content disposition, copy
-        String mimeType = URLConnection.guessContentTypeFromName(fileData.getName());
-        if(mimeType == null) {
-            mimeType = "application/octet-stream";
+        // Set content type, content length, content disposition, copy
+        String contentType = URLConnection.guessContentTypeFromName(fileData.getName());
+        if(contentType == null) {
+            contentType = "application/octet-stream";
         }
-        response.setContentType(mimeType);
+        response.setContentType(contentType);
         response.setContentLength(Integer.parseInt(fileData.getSize()));
-        response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + fileData.getName() + "\""));
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileData.getName() + "\"");
 
         OutputStream outStream = response.getOutputStream();
         IOUtils.copy(fileStream, outStream);
