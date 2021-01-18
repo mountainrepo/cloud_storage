@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+
+    <div th:fragment="noteModalDiv" class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noteModalLabel">Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div th:if="${noteSuccess eq false}" id="noteError" class="alert alert-danger">
+                    <span th:text="${errormessage}">Example Note Error Message</span>
+                </div>
+
+                <div class="modal-body">
+                    <form id="noteForm" action="#" method="POST" th:action="@{/user/notes/addoredit}" th:object="${noteObject}">
+                        <input th:field="*{id}" type="hidden" name="noteId" id="noteId">
+
+                        <div class="form-group">
+                            <label for="noteTitle" class="col-form-label">Title</label>
+                            <input th:field="*{title}" type="text" name= "noteTitle" class="form-control" id="noteTitle" maxlength="20" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="noteDescription" class="col-form-label">Description</label>
+                            <textarea th:field="*{description}" type="text" class="form-control" name="noteDescription" id="noteDescription" rows="5" maxlength="1000" required></textarea>
+                        </div>
+
+                        <button id="noteSubmit" type="submit" class="d-none"></button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#" th:href="@{/user/notes/list}" class="btn btn-secondary">Close</a>
+                    <button id="saveNoteModal" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>

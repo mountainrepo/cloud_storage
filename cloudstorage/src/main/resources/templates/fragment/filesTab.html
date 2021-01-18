@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+
+        <div th:fragment="filesDiv" class="table-responsive">
+            <table class="table table-striped" id="fileTable">
+                <thead>
+                <tr>
+                    <th style="width: 20%" scope="col"></th>
+                    <th style="width: 80%" scope="col">File Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="iter,stat : ${fileList}" th:id="${stat.count}">
+                    <td>
+                        <a name="view" class="btn btn-success" th:href="@{/user/files/view?id=} + ${iter.id}">View</a>
+                        <a name="delete" class="btn btn-danger" th:href="@{/user/files/delete?id=} + ${iter.id}">Delete</a>
+                        <input name="fileId" type="hidden" th:value="${iter.id}" />
+                    </td>
+                    <th th:text="${iter.name}" th:id="${iter.name}" scope="row">ExampleFile.txt</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+
+</html>

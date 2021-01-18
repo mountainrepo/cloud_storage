@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+
+        <title>Home</title>
+    </head>
+
+    <body class="p-3 mb-2 bg-light text-black">
+
+        <div class="container">
+            <div th:replace="~{/fragment/logout :: logoutDiv}"></div>
+
+            <div id="contentDiv" style="clear: right;">
+                <nav style="clear: right;">
+                    <div th:replace="~{/fragment/navigation :: navDiv}"></div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+                        <div th:if="${success eq true}" id="success" class="alert alert-dark">
+                            <span th:text="${message}">File created successfully!</span>
+                        </div>
+                        <div th:if="${success eq false}" id="error" class="alert alert-danger">
+                            <span th:text="${message}">Example Signup Error Message</span>
+                        </div>
+                        <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/user/files/upload}">
+                            <div class="container">
+                                <div class="row" style="margin: 1em;">
+                                    <div class="col-sm-2">
+                                        <label for="fileUpload">Upload a New File:</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="file" class="form-control-file" id="fileUpload" name="fileUpload">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button id="uploadButton" type="submit" class="btn btn-dark">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div th:replace="~{/fragment/filesTab :: filesDiv}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

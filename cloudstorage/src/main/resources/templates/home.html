@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+
+        <title>Home</title>
+    </head>
+    <body class="p-3 mb-2 bg-light text-black">
+        <div class="container">
+            <div id="logoutDiv">
+                <form action="#" method="POST" th:action="@{/user/logout}">
+                    <button id="logout" type="submit" class="btn btn-secondary float-right">Logout</button>
+                </form>
+            </div>
+
+            <div id="contentDiv" style="clear: right;">
+                <nav style="clear: right;">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-files-tab" data-toggle="tab" href="#nav-files" role="tab" aria-controls="nav-files" aria-selected="true">Files</a>
+                        <a class="nav-item nav-link" id="nav-notes-tab" data-toggle="tab" href="#nav-notes" role="tab" aria-controls="nav-notes" aria-selected="false">Notes</a>
+                        <a class="nav-item nav-link" id="nav-credentials-tab" data-toggle="tab" href="#" th:href="@{/user/credentials/list}" role="tab" aria-controls="nav-credentials" aria-selected="false">Credentials</a>
+                    </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div th:replace="~{/fragment/notesTab :: notesDiv}"></div>
+                    <div th:replace="~{/fragment/credentialsTab :: credentialsDiv}"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script th:src="@{/js/jquery-slim.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+
+        <!--For opening the note modal-->
+        <script type="text/javascript">
+            // For opening the note modal
+            function showNoteModal(elem, noteId, noteTitle, noteDescription) {
+                $('#note-id').val(noteId ? noteId : '');
+                $('#note-title').val(noteTitle ? noteTitle : '');
+                $('#note-description').val(noteDescription ? noteDescription : '');
+
+                if(elem.id == 'addNote') {
+                    document.getElementById("addoredit").value = "add";
+                }
+                else {
+                    document.getElementById("addoredit").value = "edit";
+                }
+
+                $('#noteModal').modal('show');
+            }
+
+            // For opening the credentials modal
+            function showCredentialModal(credentialId, url, username, password) {
+                $('#credentialId').val(credentialId ? credentialId : '');
+                $('#credentialUrl').val(url ? url : '');
+                $('#credentialUsername').val(username ? username : '');
+                $('#credentialPassword').val(password ? password : '');
+
+                $('#credentialModal').modal('show');
+            }
+
+            function submitNoteModalForm() {
+                form = document.getElementById('noteForm');
+                var contextpath = "${pageContext.request.contextPath}";
+
+                if(document.getElementById("addoredit").value == "add") {
+                     form.setAttribute("action","./notes/add");
+                }
+                else {
+                     form.setAttribute("action","./notes/edit");
+                }
+
+                form.submit();
+            }
+
+            function submitCredentialModalForm() {
+                form = document.getElementById('credentialForm');
+
+                if($('#credential-id').val == null) {
+                    form.action = './credentials/add';
+                }
+                else {
+                    form.action = './credentials/edit';
+                }
+
+                form.submit();
+            }
+
+            function closeCredentialModal() {
+                $('#credentialModal').modal('hide');
+            }
+
+            function closeNoteModal() {
+                $('#noteModal').modal('hide');
+            }
+
+        </script>
+    </body>
+</html>

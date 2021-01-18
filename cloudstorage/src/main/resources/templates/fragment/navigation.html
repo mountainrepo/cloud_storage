@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="navDiv" class="nav nav-tabs" id="nav-tab" role="tablist">
+    <form>   <a href="#" th:href="@{/user/files/list}" id="nav-files-tab" class="nav-item nav-link">Files</a> </form>
+    <form>   <a href="#" th:href="@{/user/notes/list}" id="nav-notes-tab" class="nav-item nav-link">Notes</a> </form>
+    <form>   <a href="#" th:href="@{/user/credentials/list}" id="nav-credentials-tab" class="nav-item nav-link">Credentials</a> </form>
+</div>
+
+</body>

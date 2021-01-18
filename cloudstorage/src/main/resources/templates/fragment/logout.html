@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+    <div th:fragment="logoutDiv" id="logoutDiv">
+     <form action="#" method="POST" th:action="@{/logout}">
+        <button id="logout" type="submit" class="btn btn-secondary float-right">Logout</button>
+     </form>
+    </div>
+
+</body>
+
+</html>

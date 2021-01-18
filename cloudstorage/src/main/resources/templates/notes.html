@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+
+        <title>Home</title>
+    </head>
+
+    <body class="p-3 mb-2 bg-light text-black" th:onload="onloadBody()">
+        <div class="container">
+
+            <div th:replace="~{/fragment/logout :: logoutDiv}"></div>
+
+            <div id="contentDiv" style="clear: right;">
+                <nav style="clear: right;">
+                    <div th:replace="~{/fragment/navigation :: navDiv}"></div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
+                        <div th:if="${success eq true}" id="noteSuccess" class="alert alert-dark">
+                            <span th:text="${message}">Note created successfully!</span>
+                        </div>
+                        <div th:if="${success eq false}" id="noteError" class="alert alert-danger">
+                            <span th:text="${message}">Example Signup Error Message</span>
+                        </div>
+
+                        <button id="addNote" style="margin: 0.25em;" type="button" class="btn btn-info float-right" th:onclick="showNoteModal()">
+                            + Add a New Note
+                        </button>
+
+                        <input type="hidden" id="addedit" th:value="${addoredit}" />
+
+                        <div th:replace="~{/fragment/notesTab :: notesDiv}"></div>
+
+                        <div th:replace="~{/fragment/noteModal :: noteModalDiv}"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script th:src="@{/js/jquery-slim.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+
+        <!--For opening the note modal-->
+        <script type="text/javascript">
+            // For opening the note modal
+            function onloadBody() {
+                var addedit = document.getElementById("addedit").value;
+
+                if(addedit != 'add' && addedit != 'edit') {
+                    return;
+                }
+
+                $('#noteModal').modal('show');
+            }
+
+            function showNoteModal(noteId, noteTitle, noteDescription) {
+                $('#noteId').val(noteId ? noteId : '');
+                $('#noteTitle').val(noteTitle ? noteTitle : '');
+                $('#noteDescription').val(noteDescription ? noteDescription : '');
+
+                $('#noteModal').modal('show');
+            }
+        </script>
+
+    </body>
+</html>

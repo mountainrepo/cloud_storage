@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+
+        <div th:fragment="notesDiv" class="table-responsive">
+            <table class="table table-striped" id="noteTable">
+                <thead>
+                <tr>
+                    <th style="width: 20%" scope="col"></th>
+                    <th style="width: 20%" scope="col">Title</th>
+                    <th style="width: 60%" scope="col">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="iter,stat : ${noteList}" th:id="${stat.count}">
+                    <td>
+                        <button name="edit" type="button" class="btn btn-success" th:onclick="showNoteModal([[${iter.id}]], [[${iter.title}]], [[${iter.description}]]);">Edit</button>
+                        <a name="delete" class="btn btn-danger" href="#" th:href="@{/user/notes/delete?id=} + ${iter.id}">Delete</a>
+                        <input type="hidden" name="noteId" th:value="${iter.id}" th:id="${'note' + iter.id}"/>
+                    </td>
+                    <th th:text="${iter.title}" th:id="${iter.title}" name="title" scope="row">Example Note Title</th>
+                    <td th:text="${iter.description}" name="description">Example Note Description </td>
+                    <!-- <a id="listlink" href="#" th:href="@{/user/notes/list}"></a> -->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+
+</html>
