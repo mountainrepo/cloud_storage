@@ -3,18 +3,21 @@ package com.udacity.jwdnd.course1.cloudstorage;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.NoteMapper;
 import com.udacity.jwdnd.course1.cloudstorage.page.*;
 import com.udacity.jwdnd.course1.cloudstorage.common.Message;
-
 import com.udacity.jwdnd.course1.cloudstorage.result.Credential;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
+
+import org.apache.commons.lang3.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CloudStorageApplicationTests {
@@ -39,7 +42,7 @@ public class CloudStorageApplicationTests {
 	private String password = "user1pwd";
 
 	// For Files
-	private String filePath = "\\testfiles\\";
+	private String filePath = null;
 	private String fileName = "Sample-jpg-image-50kb.jpg";
 
 	// For Note Dialog
@@ -55,6 +58,16 @@ public class CloudStorageApplicationTests {
 	private String credentialPassword2 = "cpassword2";
 
 	private Message Messages = new Message();
+
+	public CloudStorageApplicationTests() {
+		if(SystemUtils.IS_OS_WINDOWS) {
+			filePath = "\\testfiles\\";
+		}
+
+		if(SystemUtils.IS_OS_LINUX) {
+			filePath = "/testfiles/";
+		}
+	}
 
 	@BeforeAll
 	static void beforeAll() {
