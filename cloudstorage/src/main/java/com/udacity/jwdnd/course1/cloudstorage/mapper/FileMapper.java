@@ -12,7 +12,8 @@ public interface FileMapper {
 
     @Insert("INSERT INTO File (name, contenttype, filesize, userid, data) VALUES (#{newFile.name}, #{newFile.contenttype}, #{newFile.size}, #{newFile.userid}, #{data})")
     @Options(useGeneratedKeys = true, keyProperty = "newFile.id")
-    public Integer addFile(FileData newFile, FileInputStream data);
+    //public Integer addFile(FileData newFile, FileInputStream data);
+    public Integer addFile(FileData newFile, InputStream data);
 
     @Delete("DELETE FROM File WHERE id = #{id}")
     public void deleteFile(int id);

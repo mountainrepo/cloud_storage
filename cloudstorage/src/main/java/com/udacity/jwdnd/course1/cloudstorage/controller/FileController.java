@@ -92,6 +92,7 @@ public class FileController {
 
         // Service call - upload file
         FileData newFile = new FileData(null, uploadedFile.getOriginalFilename(), uploadedFile.getContentType(), Long.toString(uploadedFile.getSize()), user.getId());
+
         boolean isCreated = service.upload(newFile, uploadedFile.getInputStream());
 
         if(isCreated) {

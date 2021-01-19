@@ -54,24 +54,8 @@ public class FileServiceImpl implements FileService {
     public boolean upload(FileData newFile, InputStream data) throws Exception {
         TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
-        // Create file with timestamp appended to name
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmmss");
-        String formattedDateTime =  dateTime.format(formatter);
-
-        String filePath = "C:\\cloudstorage\\";
-        String filename = newFile.getName() + formattedDateTime;
-        File newFileInDisk = null;
-
         try {
-            newFileInDisk = new File(filePath + filename);
-            boolean isCreated = newFileInDisk.createNewFile();
-            if(!isCreated) {
-                throw new Exception("File not created");
-            }
-
-            storeDataIntoFile(newFileInDisk, data);
-            mapper.addFile(new FileData(null, newFile.getName(), newFile.getContentType(), newFile.getSize(), newFile.getUserid()), new FileInputStream(newFileInDisk));
+            mapper.addFile(new FileData(null, newFile.getName(), newFile.getContentType(), newFile.getSize(), newFile.getUserid()), data);
         }
         catch(Exception ex) {
             transactionManager.rollback(txStatus);
@@ -83,31 +67,6 @@ public class FileServiceImpl implements FileService {
 
         transactionManager.commit(txStatus);
         return true;
-    }
-
-    private void storeDataIntoFile(File newFile, InputStream data) throws Exception {
-        FileOutputStream outputStream = null;
-
-        try {
-            outputStream = new FileOutputStream(newFile, true);
-
-            while(true) {
-                byte[] currentBytes = new byte[1000];
-                int bytesRead = data.read(currentBytes);
-
-                if(bytesRead == -1) {
-                    break;
-                }
-
-                outputStream.write(currentBytes);
-            }
-        }
-        catch(Exception ex) {
-            throw ex;
-        }
-        finally {
-            outputStream.close();
-        }
     }
 
     public Integer getFileByName(String name, Integer userid) throws Exception {

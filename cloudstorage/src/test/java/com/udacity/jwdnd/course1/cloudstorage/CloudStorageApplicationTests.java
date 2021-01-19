@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.io.File;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CloudStorageApplicationTests {
 
@@ -37,8 +39,8 @@ public class CloudStorageApplicationTests {
 	private String password = "user1pwd";
 
 	// For Files
-	private String filePath = "C:\\FileTestPath\\";
-	private String fileName = "testfile1.txt";
+	private String filePath = "\\testfiles\\";
+	private String fileName = "Sample-jpg-image-50kb.jpg";
 
 	// For Note Dialog
 	private String noteTitle = "newNote1";
@@ -137,10 +139,10 @@ public class CloudStorageApplicationTests {
 
 		FilesTab filesTabObject = new FilesTab(driver);
 
-		System.out.println(filePath + fileName);
+		String absolutePath = new File("").getAbsolutePath();
 
 		// File Upload
-		filesTabObject.performUpload(filePath + fileName);
+		filesTabObject.performUpload(absolutePath + filePath + fileName);
 
 		Thread.sleep(3000);
 
@@ -150,6 +152,8 @@ public class CloudStorageApplicationTests {
 		int id = filesTabObject.performDelete(1);
 
 		assertEquals(false, filesTabObject.isFileDisplayedById(id));
+
+		Thread.sleep(3000);
 	}
 
 	@Test
