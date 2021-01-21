@@ -30,10 +30,17 @@ public class CredentialController extends HomeController {
         List<Credential> credentialList = service.getAllCredentials(authUser.getId());
 
         // Prepare model
-        model.addAttribute("credObject", new Credential());
+        //model.addAttribute("credObject", new Credential());
         model.addAttribute("credentialList", credentialList);
 
         Map<String, Object> modelMap = model.asMap();
+
+        if(modelMap.containsKey("credObject")) {
+            model.addAttribute("credObject", modelMap.get("credObject"));
+        }
+        else {
+            model.addAttribute("credObject", new Credential());
+        }
 
         if(modelMap.containsKey("success")) {
             model.addAttribute("success", (boolean)modelMap.get("success"));
@@ -45,6 +52,26 @@ public class CredentialController extends HomeController {
 
         // Return
         return new ModelAndView("credentials", "listModel", model);
+    }
+
+    @RequestMapping(path = "/edit", method = RequestMethod.GET)
+    public String editCredential(@RequestParam("id") Integer id, @SessionAttribute(name = "authUser") User user, Model model, RedirectAttributes redirectAttributes) throws Exception {
+        System.out.println("Edit Credential - on entry");
+        if(id == null) {
+            redirectAttributes.addFlashAttribute("success", false);
+            redirectAttributes.addFlashAttribute("message", Message.invalidId);
+            return "redirect:/user/credentials/list";
+        }
+
+        System.out.println("Edit Credential - before service call");
+        // Service call - get credential
+        Credential credential = service.getCredentialDecrypted(id, user.getId());
+
+        redirectAttributes.addFlashAttribute("credObject", credential);
+        redirectAttributes.addFlashAttribute("addoredit", "edit");
+
+        System.out.println("Edit Credential - before return");
+        return "redirect:/user/credentials/list";
     }
 
     @RequestMapping(path = "/addoredit", method = RequestMethod.POST)

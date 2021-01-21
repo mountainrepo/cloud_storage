@@ -5,6 +5,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.*;
 import com.udacity.jwdnd.course1.cloudstorage.service.*;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.util.FileCopyUtils;
@@ -131,6 +132,14 @@ public class FileController {
 
         model.addAttribute("success",true);
         model.addAttribute("message",Message.fileDownloadSuccess);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public String handleMaxUploadSize(MaxUploadSizeExceededException maxException, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("success", false);
+        redirectAttributes.addFlashAttribute("message", Message.fileUploadSizeExceeded);
+
+        return "redirect:/user/files/list";
     }
 
 }

@@ -56,7 +56,8 @@ public class SignupController {
 
         if(isInserted) {
             model.addAttribute("success", true);
-            return new ModelAndView("signup", "userModel", model);
+            //return new ModelAndView("signup", "userModel", model);
+            return new ModelAndView("login", "loginModel", model);
         }
         else {
             model.addAttribute("success", false);

@@ -14,6 +14,9 @@ public class LoginPage {
     @FindBy(id = "submit")
     private WebElement submitButton;
 
+    @FindBy(id = "logout")
+    private WebElement logout;
+
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
@@ -26,5 +29,9 @@ public class LoginPage {
         this.password.sendKeys(password);
 
         this.submitButton.submit();
+    }
+
+    public boolean loggedOut() {
+        return logout != null;
     }
 }

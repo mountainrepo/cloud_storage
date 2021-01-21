@@ -3,8 +3,11 @@ package com.udacity.jwdnd.course1.cloudstorage.mapper;
 import org.apache.ibatis.annotations.*;
 import com.udacity.jwdnd.course1.cloudstorage.model.*;
 
+import org.springframework.stereotype.*;
+
 import java.util.*;
 
+@Repository
 @Mapper
 public interface NoteMapper {
 

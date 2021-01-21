@@ -2,9 +2,11 @@ package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
 import java.util.*;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.*;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.*;
 
+@Repository
 @Mapper
 public interface CredentialMapper {
 
@@ -31,4 +33,7 @@ public interface CredentialMapper {
         @Result(property="userid", column="userid")
     })
     public List<Credential> getAllCredentials(Integer userid);
+
+    @Select("SELECT * FROM Credential WHERE id = #{id} and userid = #{userid}")
+    public Credential getCredential(Integer id, Integer userid);
 }

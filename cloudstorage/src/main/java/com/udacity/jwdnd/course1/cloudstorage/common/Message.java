@@ -8,6 +8,7 @@ public class Message {
 
     // File page messages
     public static final String fileNotSelected = "No file is selected for upload";
+    public static final String fileUploadSizeExceeded = "File size exceeds maximum file size of 20MB";
     public static final String filenameAlreadyExists = "Filename already exists";
     public static final String fileCreateSuccess = "File created successfully";
     public static final String fileDownloadSuccess = "File downloaded successfully";
@@ -26,6 +27,7 @@ public class Message {
 
     // Credential page messages
     public static final String urlExists = "Url already exists";
+    public static final String invalidId = "Id is invalid";
     public static final String credentialCreateSuccess = "Credential created successfully";
     public static final String credentialUpdateSuccess = "Credential updated successfully";
     public static final String credentialDeleteSuccess = "Credential deleted successfully";

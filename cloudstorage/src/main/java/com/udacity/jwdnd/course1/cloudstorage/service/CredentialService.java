@@ -15,4 +15,6 @@ public interface CredentialService {
     public boolean isUrlExisting(String url, Integer userid) throws Exception;
 
     public List<Credential> getAllCredentials(Integer userid) throws Exception;
+
+    public Credential getCredentialDecrypted(Integer id, Integer userid) throws Exception;
 }

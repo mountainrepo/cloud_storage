@@ -82,7 +82,7 @@ public class NotesTab extends HomePage {
 
         tableRow.findElement(By.name("edit")).click();
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
         if(dialog == null) {
             return false;

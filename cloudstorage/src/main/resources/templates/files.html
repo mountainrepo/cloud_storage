@@ -27,7 +27,7 @@
                         <div th:if="${success eq false}" id="error" class="alert alert-danger">
                             <span th:text="${message}">Example Signup Error Message</span>
                         </div>
-                        <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/user/files/upload}">
+                        <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/user/files/upload?} + ${_csrf.parameterName} + '=' + ${_csrf.token}">
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
@@ -41,6 +41,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </form>
 
                         <div th:replace="~{/fragment/filesTab :: filesDiv}"></div>
@@ -48,6 +49,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>

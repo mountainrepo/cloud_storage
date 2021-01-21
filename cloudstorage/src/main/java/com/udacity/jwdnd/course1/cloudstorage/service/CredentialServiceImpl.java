@@ -102,16 +102,34 @@ public class CredentialServiceImpl implements CredentialService {
         try {
             credentialList = mapper.getAllCredentials(userid);
 
+            /*
             for(int index = 0; index < credentialList.size(); index++) {
                 Credential currentCredential = credentialList.get(index);
                 String unencryptedPassword = encryptionService.decryptValue(currentCredential.getPassword(), currentCredential.getPasswordKey());
                 currentCredential.setPassword(unencryptedPassword);
             }
+            */
         }
         catch(Exception ex) {
             throw ex;
         }
 
         return credentialList;
+    }
+
+    public Credential getCredentialDecrypted(Integer id, Integer userid) throws Exception {
+        Credential credential = null;
+
+        try {
+            credential = mapper.getCredential(id, userid);
+
+            String unencryptedPassword = encryptionService.decryptValue(credential.getPassword(), credential.getPasswordKey());
+            credential.setPassword(unencryptedPassword);
+        }
+        catch(Exception ex) {
+            throw ex;
+        }
+
+        return credential;
     }
 }

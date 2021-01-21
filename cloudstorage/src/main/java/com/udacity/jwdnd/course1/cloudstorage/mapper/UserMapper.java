@@ -1,8 +1,11 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
-import org.apache.ibatis.annotations.*;
 import com.udacity.jwdnd.course1.cloudstorage.model.*;
 
+import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.*;
+
+@Repository
 @Mapper
 public interface UserMapper {
     @Select("SELECT * FROM USERTABLE WHERE id = #{id}")

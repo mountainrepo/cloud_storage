@@ -3,10 +3,12 @@ package com.udacity.jwdnd.course1.cloudstorage.mapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.*;
 
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.*;
 
 import java.io.*;
 import java.util.*;
 
+@Repository
 @Mapper
 public interface FileMapper {
 
