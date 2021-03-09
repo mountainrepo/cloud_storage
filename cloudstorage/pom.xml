@@ -6,6 +6,7 @@
     <groupId>com.udacity.jwdnd.course1</groupId>
     <artifactId>cloudstorage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>cloudstorage</name>
     <description>Final Project for Udacity's Spring Boot Basics course.</description>
 
